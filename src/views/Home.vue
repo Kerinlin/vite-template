@@ -1,24 +1,30 @@
 <template>
   <div>
-    {{ hello }}
-    <button @click="changeHello">改名</button>
+    <button @click="increment">Count is: {{ state.count }}, double is: {{ state.double }}</button>
   </div>
 </template>
 
 <script>
+import { reactive, computed } from 'vue'
+
 export default {
-  data() {
+  setup() {
+    const state = reactive({
+      count: 0,
+      double: computed(() => state.count * 2)
+    })
+
+    function increment() {
+      state.count++
+    }
+
     return {
-      hello: 'Hello world',
-    };
-  },
-  methods: {
-    changeHello() {
-      this.hello = 'develop';
-    },
-  },
-  created() {
-    this.hello = 'hello 欧阳铖';
-  },
-};
+      state,
+      increment
+    }
+  }
+}
 </script>
+
+<style lang="less" scoped>
+</style>
